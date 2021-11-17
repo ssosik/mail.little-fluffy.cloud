@@ -28,7 +28,7 @@
     in
     {
       # Replace machineName with your desired hostname.
-      nixosConfigurations.testmachine = nixpkgs.lib.nixosSystem rec {
+      nixosConfigurations.mail = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
 
         modules = [

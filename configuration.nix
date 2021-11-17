@@ -6,9 +6,16 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
       ./hardware-configuration.nix
       ./users.nix
+      ./monit.nix
+      ./fail2ban.nix
+      ./borgbackup.nix
+      ./taskserver.nix
+      #./meilisearch.nix
+      # Enable simple-nixos-mailserver
+      #./simple-nixos-mailserver.nix
     ];
 
   # Use the GRUB 2 boot loader.
@@ -20,11 +27,10 @@
   # Define on which hard drive you want to install Grub.
   boot.loader.grub.device = "/dev/vda";
 
-  networking.hostName = "testmachine";
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.hostName = "mail";
 
   # Set your time zone.
-  # time.timeZone = "Europe/Amsterdam";
+  time.timeZone = "America/New_York";
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -45,9 +51,6 @@
 
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
-
-
-  
 
   # Configure keymap in X11
   # services.xserver.layout = "us";
@@ -71,11 +74,13 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  # environment.systemPackages = with pkgs; [
-  #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #   wget
-  #   firefox
-  # ];
+  environment.systemPackages = with pkgs; [
+    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    wget
+    git
+  ];
+
+  programs.vim.defaultEditor = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -91,6 +96,8 @@
   services.openssh.enable = true;
   services.openssh.permitRootLogin = "no";
   services.openssh.passwordAuthentication = false;
+  services.openssh.ports = [ 64122 ];
+  services.openssh.openFirewall = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -105,6 +112,15 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "21.05"; # Did you read the comment?
+  system.autoUpgrade.enable = true;
+  system.autoUpgrade.allowReboot = true;
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 20d";
+  };
+
 
 }
 
