@@ -13,9 +13,9 @@
       ./fail2ban.nix
       ./borgbackup.nix
       ./taskserver.nix
-      #./meilisearch.nix
       # Enable simple-nixos-mailserver
-      #./simple-nixos-mailserver.nix
+      ./simple-nixos-mailserver.nix
+      #./meilisearch.nix
     ];
 
   # Use the GRUB 2 boot loader.
