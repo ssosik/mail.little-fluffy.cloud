@@ -9,6 +9,8 @@
       })
     ];
 
+  # Options are defined here:
+  # https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/blob/master/default.nix
   mailserver = {
     enable = true;
     fqdn = "mail.little-fluffy.cloud";
@@ -86,4 +88,3 @@
     };
   };
 }
-
