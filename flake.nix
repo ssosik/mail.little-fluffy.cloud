@@ -5,7 +5,7 @@
     # Replace this with any nixpkgs revision you want to use.
     # See a list of potential revisions at
     # https://github.com/NixOS/nixpkgs/branches/active
-    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "nixpkgs/release-21.05";
   };
 
   outputs = inputs@{ self, nixpkgs }:
