@@ -1,6 +1,18 @@
 { config, ... }:
 
 {
+  security.acme = {
+    email = "postmaster@little-fluffy.cloud";
+    acceptTerms = true;
+
+    certs = {
+      "meilisearch.little-fluffy.cloud".email = "postmaster@little-fluffy.cloud";
+      "meilisearch.little-fluffy.cloud".webroot = "/var/lib/acme";
+      #"meilisearch.little-fluffy.cloud".webroot = "/var/lib/acme/acme-challenge";
+    };
+
+  };
+
   services = {
     meilisearch = {
       enable = true;
