@@ -10,7 +10,7 @@
          set alert root@little-fluffy.cloud reminder on 120 cycles
          set eventqueue basedir /var/monit slots 5000
 
-         check filesystem mail.little-fluffy.cloud-rootfs with path /dev/vda3
+         check filesystem mail.little-fluffy.cloud-rootfs with path /dev/vda1
                 if space usage > 50% then alert
 
          check program SystemDegraded with path "/run/current-system/sw/bin/systemctl is-system-running"
